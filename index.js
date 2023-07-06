@@ -4,9 +4,12 @@ const mongoose = require("mongoose");
 const serverConfig = require("./configs/server.config");
 const bodyParser = require("body-parser");
 const dbConfig = require("./configs/db.config");
+var ip = require('ip');
+
 const app = express(); // Initialize express instance
 const os = require("os");
 const PORT = 4000;
+
 
 console.clear(); // clear the console to remove previous logging
 
@@ -25,11 +28,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 require("./routes")(app) // Initialize the route/s
 app.get("/", (req, res) => {
-  const parseIp = (req) =>
-    req.headers["x-forwarded-for"]?.split(",").shift() ||
-    req.socket?.remoteAddress;
-  res.send(`Welcome ${parseIp(req)}, it's me ${os.hostname()}
-  with ❤️ from San Francisco, USA (West) - sfo1`);
+  const data = `Welcome ${ip.address()}, it's me ${os.hostname()}
+    with ❤️ from San Francisco, USA (West) - sfo1`
+  res.send(`<html>${data}</html>`);
 });
 
 // Connect to the Database
