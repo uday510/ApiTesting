@@ -10,8 +10,6 @@ const PORT = 4000;
 
 console.clear(); // clear the console to remove previous logging
 
-app.use(express.static(__dirname));
-
 // Logs time for every request
 function requestTime(req, res, next) {
     process.stdout.write(`Request-Date: ${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()} IST, ${req.method} ${req.url} \n`);
@@ -22,16 +20,14 @@ app.use(bodyParser.json()); // used to parse the request and extract the informa
 app.use(bodyParser.urlencoded({ extended: false }));
 
 
-// app.get("/", (req, res) => {
-  // return res.sendFile(path.join(__dirname + '/index.html'));
-//   const parseIp = (req) =>
-//     req.headers["x-forwarded-for"]?.split(",").shift() ||
-//     req.socket?.remoteAddress;
-//   res.send(`Welcome ${parseIp(req)}, it's me ${os.hostname()}
-//   with ❤️ from San Francisco, USA (West) - sfo1`);
-// });
+app.get("/", (req, res) => {
+  const parseIp = (req) =>
+    req.headers["x-forwarded-for"]?.split(",").shift() ||
+    req.socket?.remoteAddress;
+  res.send(`Welcome ${parseIp(req)}, it's me ${os.hostname()}
+  with ❤️ from San Francisco, USA (West) - sfo1`);
+});
 require("./routes")(app) // Initialize the route/s
-
 
 
 // Connect to the Database
