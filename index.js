@@ -35,20 +35,20 @@ app.get("/", (req, res) => {
 
 
 // Connect to the Database
-mongoose
-  .connect(dbConfig.DB_URL, {
-    useNewUrlParser: true, // To avoid Deprecation Warning
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    console.log(`Pinging Google Cloud Servers...`);
-    console.log(`Ping Successful`);
-    console.log(`Connecting to Atlas GCP Mumbai (asia-south1)...`);
-    console.log(`Connection established`);
-  })
-  .catch((err) => {
-    console.log(err.message);
-  });
+// mongoose
+//   .connect(dbConfig.DB_URL, {
+//     useNewUrlParser: true, // To avoid Deprecation Warning
+//     useUnifiedTopology: true,
+//   })
+//   .then(() => {
+//     console.log(`Pinging Google Cloud Servers...`);
+//     console.log(`Ping Successful`);
+//     console.log(`Connecting to Atlas GCP Mumbai (asia-south1)...`);
+//     console.log(`Connection established`);
+//   })
+//   .catch((err) => {
+//     console.log(err.message);
+//   });
 
 //Initialize the express server
 module.exports = app.listen(PORT, () => {
