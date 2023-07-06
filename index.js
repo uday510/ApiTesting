@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const dbConfig = require("./configs/db.config");
 const app = express(); // Initialize express instance
 const os = require("os");
+const e = require("express");
 const PORT = 4000;
 
 console.clear(); // clear the console to remove previous logging
@@ -35,25 +36,18 @@ app.get("/", (req, res) => {
 
 
 // Connect to the Database
-// mongoose
-//   .connect(dbConfig.DB_URL, {
-//     useNewUrlParser: true, // To avoid Deprecation Warning
-//     useUnifiedTopology: true,
-//   })
-//   .then(() => {
-//     console.log(`Pinging Google Cloud Servers...`);
-//     console.log(`Ping Successful`);
-//     console.log(`Connecting to Atlas GCP Mumbai (asia-south1)...`);
-//     console.log(`Connection established`);
-//   })
-//   .catch((err) => {
-//     console.log(err.message);
-//   });
+mongoose
+  .connect(dbConfig.DB_URL, {
+    useNewUrlParser: true, // To avoid Deprecation Warning
+    useUnifiedTopology: true,
+  })
+  .then(() => { 
+    app.listen(4000);
+  })
+  .catch((err) => {
+    throw err;
+  });
 
-//Initialize the express server
-module.exports = app.listen(PORT, () => {
-  console.log(`Admin Application Running on PORT: ${PORT}`)
-})
 
 // import express from "express";
 
