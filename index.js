@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.get("/", (req, res) => {
   res.json({ message: "Hello From Express App" });
 });
-require("./routes")(app) // Initialize the route/s
+// require("./routes")(app) // Initialize the route/s
 // app.get("/", (req, res) => {
 //   const parseIp = (req) =>
 //     req.headers["x-forwarded-for"]?.split(",").shift() ||
