@@ -20,6 +20,8 @@ app.use(bodyParser.json()); // used to parse the request and extract the informa
 app.use(bodyParser.urlencoded({ extended: false }));
 
 
+require("./routes")(app) // Initialize the route/s
+
 app.get("/", (req, res) => {
   const parseIp = (req) =>
     req.headers["x-forwarded-for"]?.split(",").shift() ||
@@ -27,7 +29,6 @@ app.get("/", (req, res) => {
   res.send(`Welcome ${parseIp(req)}, it's me ${os.hostname()}
   with ❤️ from San Francisco, USA (West) - sfo1`);
 });
-require("./routes")(app) // Initialize the route/s
 
 
 // Connect to the Database
