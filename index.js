@@ -6,7 +6,6 @@ const bodyParser = require("body-parser");
 const dbConfig = require("./configs/db.config");
 const app = express(); // Initialize express instance
 const os = require("os");
-const e = require("express");
 const PORT = 4000;
 
 console.clear(); // clear the console to remove previous logging
