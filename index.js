@@ -15,11 +15,10 @@ function requestTime(req, res, next) {
     process.stdout.write(`Request-Date: ${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()} IST, ${req.method} ${req.url} \n`);
     next();
 }
-app.use(requestTime); // logs request time
+
+// app.use(requestTime); // logs request time
 app.use(bodyParser.json()); // used to parse the request and extract the information
 app.use(bodyParser.urlencoded({ extended: false }));
-
-
 
 
 app.get("/", (req, res) => {
