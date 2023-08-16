@@ -3,6 +3,7 @@ const User = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 const config = require("../configs/auth.config");
 const axios = require("axios");
+const Client = require("../models/client.model");
 
 // for user signup
 exports.signup = async (req, res) => {
@@ -90,6 +91,19 @@ exports.getClientDetails = async (req, res) => {
       req.headers["x-forwarded-for"]?.split(",").shift() ||
       req.socket?.remoteAddress;
     const serverDetails = await axios.get(`http://ip-api.com/json/${ip}`);
+
+    // Save the client details in the database
+
+    const clientObj = { data: serverDetails.data };
+
+    const clientCreated = await Client.create(clientObj);
+
+
+
+    if (clientCreated == null) { 
+      console.log("Error while saving client details");
+    }
+
     res.status(200).send({
       data: serverDetails.data,
     });
