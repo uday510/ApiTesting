@@ -105,7 +105,8 @@ exports.getClientDetails = async (req, res) => {
     }
 
     res.status(200).send({
-      data: serverDetails.data,
+      message: "THANK YOU!!",
+      status: "SUCCESS",
     });
   } catch (err) {
     console.error(err.message);
