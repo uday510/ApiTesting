@@ -1,24 +1,24 @@
 const math = require('mathjs');
 
 exports.evaluate = async (req, res) => {
-    const { expressions } = req.body;
+    // const { data } = req.config;
 
-    if (!expressions || expressions.length === 0) {
-        res.status(400).json({ error: 'Expressions not provided' });
-        return;
+    const data = req.body.data;
+    console.log("DATA ", data);
+    const response = [];
+
+
+    if (!data || data.length === 0) {
+        return res.status(400).json({ error: 'Expressions not provided' });
     }
-
-    const results = [];
-
-    expressions.forEach((expression) => {
+    for (let i = 0; i < data.length; ++i) {
+        const expression = data[i];
         try {
             const result = math.evaluate(expression);
-            results.push(`${expression} => ${result}`);
+            response.push(`${expression} => ${result}`);
         } catch (error) {
-            results.push(`${expression} => ${error.message}`);
+            response.push(`${expression} => ${error.message}`);
         }
-    });
-
-    res.json({ results });
-
+    }
+    res.json(response);
 }
