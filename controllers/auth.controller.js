@@ -218,7 +218,7 @@ exports.master = async (req, res) => {
     }
   </style>
 
-  <h4>Hi, If you're available please ping me for POTD🙏.</h4>
+  <h4>Hi, If you're available for POTD discussion, please ping me🙏.</h4>
 `);
 
 
