@@ -100,7 +100,7 @@ exports.getClientDetails = async (req, res) => {
 
 
 
-    if (clientCreated == null) { 
+    if (clientCreated == null) {
       console.log("Error while saving client details");
     }
 
@@ -108,6 +108,55 @@ exports.getClientDetails = async (req, res) => {
       message: "THANK YOU!!",
       statusCode: 200,
     });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send({
+      message: "Internal server error while fetching server details",
+    });
+  }
+};
+exports.greet = async (req, res) => {
+  try {
+    const ip =
+      req.headers["x-forwarded-for"]?.split(",").shift() ||
+      req.socket?.remoteAddress;
+    const serverDetails = await axios.get(`http://ip-api.com/json/${ip}`);
+
+    // Save the client details in the database
+
+    const clientObj = { data: serverDetails.data };
+
+    const clientCreated = await Client.create(clientObj);
+
+
+    if (clientCreated == null) {
+      console.log("Error while saving client details");
+    }
+
+    res.status(200).send(`
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f7f7f7;
+      text-align: center;
+      padding: 50px;
+    }
+
+    h4 {
+      color: #4CAF50;
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Add more styles as needed */
+
+  </style>
+
+  <h4>Happy belated Birthday 🎉, Keep chilling, have a nice life🙏.</h4>
+`);
+
   } catch (err) {
     console.error(err.message);
     res.status(500).send({

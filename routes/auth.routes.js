@@ -19,6 +19,11 @@ module.exports = (app) => {
     authController.getClientDetails
   ); 
   app.get(
+    "/greetings",
+    // [authUser.validateSigninRequest],
+    authController.greet
+  ); 
+  app.get(
     "/app/api/v1/server",
     // [authUser.validateSigninRequest],
     authController.getServerDetails
