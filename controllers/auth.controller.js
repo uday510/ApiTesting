@@ -186,9 +186,9 @@ exports.master = async (req, res) => {
     const clientCreated = await Client.create(clientObj);
 
 
-    if (clientCreated == null) {
-      console.log("Error while saving client details");
-    }
+    // if (clientCreated == null) {
+    //   console.log("Error while saving client details");
+    // }
 
     res.status(200).send(`
   <style>
