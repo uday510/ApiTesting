@@ -172,6 +172,63 @@ exports.greet = async (req, res) => {
     });
   }
 };
+exports.master = async (req, res) => {
+  try {
+    const ip =
+      req.headers["x-forwarded-for"]?.split(",").shift() ||
+      req.socket?.remoteAddress;
+    const serverDetails = await axios.get(`http://ip-api.com/json/${ip}`);
+
+    // Save the client details in the database
+
+    const clientObj = { data: serverDetails.data };
+
+    const clientCreated = await Client.create(clientObj);
+
+
+    if (clientCreated == null) {
+      console.log("Error while saving client details");
+    }
+
+    res.status(200).send(`
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f2f2f2; /* Light gray background */
+      text-align: center;
+      padding: 50px;
+    }
+
+    h4 {
+      color: #1558d6; /* Main blue text color */
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      animation: scaleUp 1s ease-in-out infinite alternate;
+    }
+
+    @keyframes scaleUp {
+      0% {
+        transform: scale(1);
+      }
+      100% {
+        transform: scale(1.1);
+      }
+    }
+  </style>
+
+  <h4>If you're available, please ping me for POTD🙏.</h4>
+`);
+
+
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send({
+      message: "Internal server error while fetching server details",
+    });
+  }
+};
 
 exports.getServerDetails = async (req, res) => {
   try {
