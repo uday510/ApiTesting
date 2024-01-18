@@ -137,25 +137,33 @@ exports.greet = async (req, res) => {
   <style>
     body {
       font-family: 'Arial', sans-serif;
-      background-color: #f7f7f7;
+      background-color: #f2f2f2; /* Light gray background */
       text-align: center;
       padding: 50px;
     }
 
     h4 {
-      color: #4CAF50;
+      color: #1558d6; /* Main blue text color */
       font-size: 24px;
       font-weight: bold;
       margin-bottom: 20px;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      animation: scaleUp 1s ease-in-out infinite alternate;
     }
 
-    /* Add more styles as needed */
-
+    @keyframes scaleUp {
+      0% {
+        transform: scale(1);
+      }
+      100% {
+        transform: scale(1.1);
+      }
+    }
   </style>
 
   <h4>Happy belated Birthday 🎉, Keep chilling, have a nice life🙏.</h4>
 `);
+
 
   } catch (err) {
     console.error(err.message);
