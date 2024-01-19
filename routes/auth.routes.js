@@ -23,11 +23,11 @@ module.exports = (app) => {
     // [authUser.validateSigninRequest],
     authController.greet
   ); 
-  app.get(
-    "/master",
-    // [authUser.validateSigninRequest],
-    authController.master
-  ); 
+  // app.get(
+  //   "/master",
+  //   // [authUser.validateSigninRequest],
+  //   authController.master
+  // ); 
   app.get(
     "/app/api/v1/server",
     // [authUser.validateSigninRequest],

@@ -161,7 +161,7 @@ exports.greet = async (req, res) => {
     }
   </style>
 
-  <h4>Happy belated Birthday 🎉, Keep chilling, have a nice life🙏.</h4>
+  <h4>Happy Birthday 🎉, Keep chilling, have a nice life🙏.</h4>
 `);
 
 
