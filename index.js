@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const serverConfig = require("./configs/server.config");
 const bodyParser = require("body-parser");
 const dbConfig = require("./configs/db.config");
-var ip = require('ip');
+const fetch = require('node-fetch');
 
 const app = express(); // Initialize express instance
 const os = require("os");
@@ -26,10 +26,20 @@ app.use(bodyParser.json()); // used to parse the request and extract the informa
 app.use(bodyParser.urlencoded({ extended: false }));
 
 require("./routes")(app) // Initialize the route/s
-app.get("/", (req, res) => {
-  let data = `Welcome ${ip.address()}, it's me ${os.hostname()}
-    with ❤️ from San Francisco, USA (West) - sfo1`
-  res.send(`<html>${data}</html>`);
+
+app.use(express.static(path.join(__dirname, 'public'))); // Serve static files
+
+app.get("/", async (req, res) => { 
+  // return the ip address of the client from amazonaws
+  const response = await fetch('https://checkip.amazonaws.com');
+
+  const data = await response.text();
+
+  console.log();
+
+  res.send(data);
+
+  
 });
 
 // Connect to the Database
@@ -40,6 +50,7 @@ mongoose
   })
   .then(() => {
     app.listen(4000);
+    console.log(`Server is running on ${os.hostname()} at ${serverConfig.PORT}`);
   })
   .catch((err) => {
     throw err;
